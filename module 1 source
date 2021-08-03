@@ -1,0 +1,37 @@
+import androidx.appcompat.app.AppCompatActivity;   
+import android.app.ActivityOptions;  import android.content.Intent;  import android.os.Bundle; 
+import android.os.Handler; 
+import android.text.TextUtils; 
+import android.util.Pair; 
+import android.view.View; 
+import android.view.WindowManager; 
+import android.view.animation.Animation;  import android.view.animation.AnimationUtils;  import android.widget.ImageView; 
+import android.widget.TextView;   
+public class MainActivity extends AppCompatActivity {   
+private static int splash_screen =3000;  Animation top,bottom; 
+ImageView img; 
+TextView txt; 
+@Override 
+protected void onCreate(Bundle savedInstanceState) {  super.onCreate(savedInstanceState); 
+getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowM anager.LayoutParams.FLAG_FULLSCREEN); 
+setContentView(R.layout.activity_main);  getSupportActionBar().hide(); 
+top= AnimationUtils.loadAnimation(this,R.anim.top_animation); 
+bottom= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);   
+img = findViewById(R.id.imageView);  txt = findViewById(R.id.textView);  img.setAnimation(top);  txt.setAnimation(bottom); 
+new Handler().postDelayed(new Runnable() {  @Override 
+public void run() {  Intent splash = new
+ 
+ 
+ 
+Intent(MainActivity.this,SignIn.class);   
+Pair[] pairs = new Pair[2]; 
+pairs[0] = new Pair<View,String>(img,"logo_image"); 
+ 
+pairs[1] = new Pair<View,String>(txt,"logo_text"); 
+if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) { 
+ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs); 
+startActivity(splash,options.toBundle()); 
+finish();  } 
+}  },splash_screen); 
+ 
+}  }
